@@ -1,3 +1,4 @@
 # masondevelops
 
-If you're seeing this, just go to my website already...
+Site is under immediate renovations.
+We'll be back soon!
