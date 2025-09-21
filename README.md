@@ -1,1 +1,3 @@
-# masondevelops.github.io
+# masondevelops
+
+If you're seeing this, just go to my website already...
