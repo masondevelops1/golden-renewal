@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UT Yellow: Golden Renewal</title>
+    <link rel="icon" type="image/x-icon" href="icon.ico">
+    <style>
+        @font-face {
+        font-family: "UndertaleMars"; /* nickname for the font */
+        src: url("undertale-mars-needs-cunnilingus.otf.woff2") format("woff2");
+        font-display: swap;
+        }
+
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+  
+        body {
+        background: #000;
+        color: #fff;
+        font-family: "UndertaleMars", monospace;
+        line-height: 1.6;
+        overflow-x: hidden;
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 0;
+            opacity: 0.7;
+            animation: twinkle 4s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 3px solid #333;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            color: #ffeb36;
+            text-shadow: 2px 2px 0 #000, 4px 4px 0 #333;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+        
+        .subtitle {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 0.6rem;
+            color: #ffff00;
+            font-style: italic;
+        }
+        
+        .heart {
+            color: #ffeb36;
+            font-size: 1.2em;
+            animation: heartbeat 2s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Hidden Pine Tree (inline version for title) */
+        .hidden-pine {
+            display: inline;
+            position: static;
+            vertical-align: middle;
+            font-size: 1.2rem;
+            color: #1a4a2e;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            opacity: 0.1;
+            animation: glitchPine 8s infinite;
+            transform: rotate(-5deg);
+        }
+
+        .hidden-pine:hover {
+            opacity: 0.8;
+            color: #4a9;
+            text-shadow: 0 0 10px #4a9;
+            transform: rotate(0deg) scale(1.2);
+            animation: treeGlitchHover 0.2s infinite;
+        }
+
+        @keyframes glitchPine {
+            0%, 95% { 
+                opacity: 0.1;
+                transform: rotate(-5deg);
+                color: #1a4a2e;
+            }
+            96% { 
+                opacity: 0.7;
+                color: #ff0000;
+                text-shadow: 2px 0 #ff0000, -2px 0 #00ffff;
+                transform: rotate(2deg);
+            }
+            97% { 
+                opacity: 0.1;
+                color: #1a4a2e;
+                transform: rotate(-8deg);
+            }
+            98% { 
+                opacity: 0.9;
+                color: #ffff00;
+                text-shadow: 0 0 15px #ffff00;
+                transform: rotate(3deg) scale(1.1);
+            }
+            99%, 100% { 
+                opacity: 0.1;
+                color: #1a4a2e;
+                transform: rotate(-5deg);
+            }
+        }
+
+        @keyframes treeGlitchHover {
+            0% { text-shadow: 0 0 10px #4a9; }
+            50% { text-shadow: -2px 0 #ff0000, 2px 0 #00ffff, 0 0 10px #4a9; }
+            100% { text-shadow: 0 0 10px #4a9; }
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .content-section {
+            background: #111;
+            border: 2px solid #333;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 1rem;
+            color: #ffeb36;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .description {
+            font-size: 0.8rem;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            font-size: 0.7rem;
+            color: #ccc;
+        }
+        
+        .feature-list li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "♡";
+            position: absolute;
+            left: 0;
+            color: #ffeb36;
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .download-box {
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            border: 3px solid #ffeb36;
+            padding: 25px;
+            text-align: center;
+            animation: glow 3s infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px #ffeb36; }
+            100% { box-shadow: 0 0 20px #ffeb36, 0 0 30px #ffeb36; }
+        }
+        
+        .download-title {
+            font-size: 0.7rem;
+            color: #f2dd1d;
+            margin-bottom: 15px;
+        }
+        
+        .download-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .download-link, .join-team-btn {
+            background: #333;
+            border: 2px solid #666;
+            color: #fff;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: block;
+            text-align: center;
+        }
+        
+        .download-link:hover {
+            background: #ffeb36;
+            color: #000;
+            border-color: #ffee55;
+            transform: translateY(-2px);
+        }
+        
+        .join-team-btn {
+            background: linear-gradient(45deg, #ffff00, #ffeb36);
+            color: #000;
+            border-color: #ffff00;
+            font-weight: bold;
+            animation: pulseGlow 2s infinite alternate;
+            margin-top: 10px;
+        }
+        
+        .join-team-btn:hover {
+            background: linear-gradient(45deg, #ffeb36, #ffff00);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 255, 0, 0.4);
+        }
+        
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px rgba(255, 255, 0, 0.5); }
+            100% { box-shadow: 0 0 15px rgba(255, 255, 0, 0.8), 0 0 25px rgba(255, 107, 157, 0.3); }
+        }
+        
+        .social-links {
+            background: #111;
+            border: 2px solid #333;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .social-title {
+            font-size: 0.6rem;
+            color: #ffff00;
+            margin-bottom: 15px;
+        }
+        
+        .social-link {
+            display: inline-block;
+            background: #333;
+            border: 2px solid #666;
+            color: #fff;
+            padding: 8px 15px;
+            text-decoration: none;
+            font-size: 0.4rem;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link.discord:hover {
+            background: #7289da;
+            border-color: #7289da;
+        }
+        
+        .social-link.gamebanana:hover {
+            background: #ff6600;
+            border-color: #ff6600;
+        }
+        
+        .social-link.gamejolt:hover {
+            background: #ccff00;
+            border-color: #ccff00;
+            color: #000;
+        }
+        
+        .screenshots {
+            margin-top: 40px;
+        }
+        
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .screenshot {
+            border: 2px solid #333;
+            transition: all 0.3s ease;
+            background: #111;
+            padding: 10px;
+        }
+        
+        .screenshot:hover {
+            border-color: #ffeb36;
+            transform: scale(1.05);
+        }
+        
+        .screenshot img {
+            width: 100%;
+            height: auto;
+            image-rendering: pixelated;
+        }
+        
+        .screenshot-caption {
+            font-size: 0.4rem;
+            color: #ccc;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .footer {
+            border-top: 3px solid #333;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer-text {
+            font-size: 0.4rem;
+            color: #666;
+            line-height: 2;
+        }
+        
+        .credits {
+            margin-top: 20px;
+            font-size: 0.3rem;
+            color: #555;
+        }
+        
+        /* Music Controls */
+        .music-controls {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            border: 10px solid #333;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.3rem;
+        }
+        
+        .music-btn {
+            background: #333;
+            border: 1px solid #666;
+            color: #fff;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.6rem;
+            font-family: 'UndertaleMars', monospace;
+            transition: all 0.3s ease;
+        }
+        
+        .music-btn:hover, .music-btn.playing {
+            background: #ffeb36;
+            color: #000;
+            border-color: #ffeb36;
+        }
+        
+        .volume-slider {
+            width: 50px;
+            height: 5px;
+            background: #333;
+            outline: none;
+        }
+        
+        .volume-label {
+            color: #ccc;
+            font-size: 0.6rem;
+        }
+        
+        .music-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #ffeb36;
+            padding: 10px 15px;
+            font-size: 0.4rem;
+            color: #ffeb36;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            z-index: 1000;
+        }
+        
+        .music-info.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .screenshot-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .music-controls {
+                top: 10px;
+                right: 10px;
+                padding: 8px;
+                gap: 8px;
+            }
+
+            /* Pine tree stays inline in title on mobile, font size scales with .title */
+            .hidden-pine {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Chara-specific animations */
+        .chara-text {
+            color: #ffeb36;
+            text-shadow: 0 0 5px #ffeb36;
+        }
+        
+        .glitch-text {
+            animation: textglitch 2s infinite;
+        }
+        
+        @keyframes textglitch {
+            0%, 100% { text-shadow: 0 0 5px #ffd92e; }
+            25% { text-shadow: -2px 0 #ffee00, 2px 0 #ff0000; }
+            50% { text-shadow: 2px 0 #ffee00, -2px 0 #ff0000; }
+            75% { text-shadow: -2px 0 #ffee00, 2px 0 #ff0000; }
+        }
+        
+        .locket {
+            color: #ffd700;
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; text-shadow: 0 0 10px #ffd700; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="title glitch-text">
+              UT Yellow: Golden Renewal
+            </h1>
+            <p class="subtitle">A modification to Undertale Yellow, the critically acclaimed fangame to UNDERTALE.</p>
+            <p class="tagline">"Justice... it's not just a feeling... it's a guide. A driving force for us... and it's led me here. Let justice be served..."</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="left-content">
+                <div class="content-section">
+                    <h2 class="section-title"><span class="heart">♡</span> The Story</h2>
+                    <div class="description">
+                        <p>Flowey wanted things to go his way... for things to be different... and he got his wish.</p>
+                        <br>
+                        <p>In UT Yellow: Golden Renewal, you play inside a universe different than usual. <span class="chara-text">Clover</span> now stands in an UNDERGROUND changed by a wished upon star.</p>
+                        <br>
+                        <p>Though the puzzle may fit together to you, more pieces have filled in the blank spots, spots unnoticeable until you look at it from afar. And somewhere in the shadows, you'll find that <span class="glitch-text">JUSTICE shall guide you.</span>...</p>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h2 class="section-title">✦ Features</h2>
+                    <ul class="feature-list">
+                        <li>Enjoy tons of changes and additions for a fully reimagined experience.</li>
+                        <li>Explore lots of brand new and unused content, made to work well with the main story!</li>
+                        <li>Dive into brand new stories for extra playtime and extra lore, made thoroughly by our writers!</li>
+                        <li>Jam to almost all of Undertale Yellow’s soundtrack, with a (might be gold-colored) refresh!</span></li>
+                        <li>Wear an <span class="chara-text">HD Cowboy Hat™!</span> (you still may not take it off...)</li>
+                        <li>Find new content explaining the untouched lore, while still keeping that sense of <span class="glitch-text">mystery...</span>!</li>
+                        <li>Catch up with past pals by sending mail! (may be changed later in development)</li>
+                        <li>Break several bones by falling way too many times.</li>
+                        <li>Exercise your brain by solving all new, "brain-twisting," puzzles!</li>
+                        <li>Enjoy trying to 100% the game, because now there’s achievements! (may be changed later in development)</li>
+                        <li>Wonder why my clover is not yellowing them tale very under...</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="download-box">
+                    <h3 class="download-title">DOWNLOAD (NOT RELEASED YET)</h3>
+                    <div class="download-links">
+                        <a href="https://gamebanana.com/members/4683628" class="download-link">GameBanana</a>
+                        <a href="https://gamejolt.com/games/GoldenRenewal/937080" class="download-link">GameJolt</a>
+                        <a href="https://forms.gle/nYpJfmh1BWxkhkcN9" class="join-team-btn">★ JOIN OUR TEAM ★</a>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <h3 class="social-title">CONNECT WITH US!</h3>
+                    <a href="https://discord.gg/vAS5gr4Ext" class="social-link discord">Discord</a>
+                    <a href="https://www.youtube.com/@TeamMetalNMagic" class="social-link gamebanana">YouTube</a>
+                    <a href="https://gamejolt.com/games/GoldenRenewal/937080" class="social-link gamejolt">GameJolt</a>
+                </div>
+                
+                <div class="content-section">
+                    <h3 class="section-title">⛓ Requirements</h3>
+                    <div class="description">
+                        <p>UNDERTALE: Yellow<br>(Latest Version)</p>
+                        <br>
+                        <p>The actual mod... obviously.</p>
+                        <br>
+                        <p>Fresh save file is ★HEAVILY★ recommended.<br>(Anything past Dark Ruins are unfinished...)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="screenshots">
+            <div class="content-section">
+                <h2 class="section-title">📸 Screenshots</h2>
+                <div class="screenshot-gallery">
+                    <div class="screenshot">
+                        <img src="stat.png" alt="SPOILER">
+                        <div class="screenshot-caption">Tenna has censored this message.</div>
+                    </div>
+                    <div class="screenshot">
+                        <img src="guard.png" alt="SPOILER">
+                        <div class="screenshot-caption">Tenna has censored this message.</div>
+                    </div>
+                    <div class="screenshot">
+                        <img src="story.png" alt="SPOILER">
+                        <div class="screenshot-caption">Tenna has censored this message.</div>
+                    </div>
+                    <div class="screenshot">
+                        <img src="blade.png" alt="SPOILER">
+                        <div class="screenshot-caption">Tenna has censored this message.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Background Music -->
+        <audio id="backgroundMusic" loop preload="auto">
+            <source src="anothersettings.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <div class="music-controls">
+            <button id="musicToggle" class="music-btn">♫ Music: OFF</button>
+            <input type="range" id="volumeSlider" min="0" max="100" value="30" class="volume-slider">
+            <span class="volume-label">Vol</span>
+        </div>
+    
+        <footer class="footer">
+            <div class="footer-text">
+                <p>A fan-modification of Undertale Yellow, which is a fangame of UNDERTALE, which is owned by Toby Fox.</p>
+                <p><span class="heart">♡</span> Justice... it's not just a feeling... it's a guide. A driving force for us... and it's led me here. Let justice be served... <span class="heart">♡</span></p>
+                <p>Nothing will ever be quite the same...</p>
+            </div>
+            <div class="credits">
+                <p>Created by Mason | Website template by Chara Dreemurr</p>
+            </div>
+        </footer>
+    </div>
+   
+    <div class="music-info" id="musicInfo">
+        ♪ Now Playing: Another Settings ~ An Unused Golden Renewal Soundtrack by Kanno.
+    </div>
+
+    <script>
+        // Create starfield
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numStars = 150;
+            
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.animationDuration = (Math.random() * 4 + 3) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Random text corruption effect
+        function addTextCorruption() {
+            const glitchElements = document.querySelectorAll('.glitch-text');
+            
+            glitchElements.forEach(element => {
+                const originalText = element.textContent;
+                const corruptChars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
+                
+                setInterval(() => {
+                    if (Math.random() < 0.1) {
+                        let corruptedText = originalText;
+                        const numCorruptions = Math.floor(Math.random() * 3) + 1;
+                        
+                        for (let i = 0; i < numCorruptions; i++) {
+                            const randomIndex = Math.floor(Math.random() * originalText.length);
+                            const randomChar = corruptChars[Math.floor(Math.random() * corruptChars.length)];
+                            corruptedText = corruptedText.substring(0, randomIndex) + randomChar + corruptedText.substring(randomIndex + 1);
+                        }
+                        
+                        element.textContent = corruptedText;
+                        
+                        setTimeout(() => {
+                            element.textContent = originalText;
+                        }, 150);
+                    }
+                }, 2000);
+            });
+        }
+        
+        // Random screen shake
+        function addScreenShake() {
+            setInterval(() => {
+                if (Math.random() < 0.03) {
+                    document.body.style.transform = `translate(${Math.random() * 6 - 3}px, ${Math.random() * 6 - 3}px)`;
+                    setTimeout(() => {
+                        document.body.style.transform = 'translate(0, 0)';
+                    }, 100);
+                }
+            }, 3000);
+        }
+        
+        // Add floating heart particles
+        function createHeartParticles() {
+            setInterval(() => {
+                if (Math.random() < 0.1) {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '♡';
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.top = '100%';
+                    heart.style.color = '#f21d1d';
+                    heart.style.fontSize = '12px';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.zIndex = '999';
+                    heart.style.animation = 'floatUp 4s linear forwards';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 4000);
+                }
+            }, 2000);
+        }
+        
+        // Add floating animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                0% { 
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Music System
+        let musicPlaying = false;
+        let userInteracted = false;
+        const audio = document.getElementById('backgroundMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const musicInfo = document.getElementById('musicInfo');
+
+        // Set initial volume (30% for background music)
+        audio.volume = 0.3;
+
+        // Toggle music on/off
+        musicToggle.addEventListener('click', function() {
+            if (musicPlaying) {
+                audio.pause();
+                musicToggle.textContent = '♫ Music: OFF';
+                musicToggle.classList.remove('playing');
+                musicInfo.classList.remove('show');
+                musicPlaying = false;
+            } else {
+                audio.play().then(() => {
+                    musicToggle.textContent = '♫ Music: ON';
+                    musicToggle.classList.add('playing');
+                    musicInfo.classList.add('show');
+                    musicPlaying = true;
+                }).catch(e => {
+                    console.log('Audio play failed:', e);
+                });
+            }
+        });
+
+        // Volume control
+        volumeSlider.addEventListener('input', function() {
+            audio.volume = this.value / 100;
+        });
+
+        // Auto-enable music on first user interaction
+        document.addEventListener('click', function() {
+            if (!userInteracted && !musicPlaying) {
+                userInteracted = true;
+                audio.play().then(() => {
+                    musicToggle.textContent = '♫ Music: ON';
+                    musicToggle.classList.add('playing');
+                    musicInfo.classList.add('show');
+                    musicPlaying = true;
+                }).catch(e => {
+                    console.log('Auto-play failed:', e);
+                });
+            }
+        }, { once: true });
+
+        // Hide music info after 5 seconds
+        audio.addEventListener('play', function() {
+            setTimeout(() => {
+                musicInfo.classList.remove('show');
+            }, 5000);
+        });
+
+        // Handle audio errors
+        audio.addEventListener('error', function() {
+            musicToggle.textContent = '♫ Music: ERROR';
+            console.log('Error loading audio file');
+        });
+
+        // Initialize effects
+        createStars();
+        addTextCorruption();
+        addScreenShake();
+        createHeartParticles();
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
